@@ -1,0 +1,5 @@
+[build]
+builder = "go"
+
+[deploy]
+command = "go run main.go"
