@@ -74,18 +74,17 @@ func main() {
 	// Закрываем файл при завершении программы
 	defer logFile.Close()
 
-	// Фиктивный HTTP-сервер для Render
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Bot is running!")
-	})
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // Стандартный порт
-	}
-
-	log.Printf("Starting HTTP server on port %s", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	go func() {
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, "Bot is running!")
+		})
+		port := os.Getenv("PORT")
+		if port == "" {
+			port = "8080"
+		}
+		log.Printf("Starting HTTP server on port %s", port)
+		log.Fatal(http.ListenAndServe(":"+port, nil))
+	}()
 
 	// Остальной код
 	go resetUniqueVisitors()
