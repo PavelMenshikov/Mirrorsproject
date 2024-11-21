@@ -38,17 +38,21 @@ func handleStart(userID int64) {
 
 func main() {
 	go resetUniqueVisitors()
-	// Загрузка переменных окружения из файла .env
-	err := godotenv.Load("C:/Users/2shkan/golang/Projects/MirrorsBot/.env")
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
+	_ = godotenv.Load(".env")
 
 	// Получение токена из переменной окружения
 	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
 	if botToken == "" {
 		log.Fatal("TELEGRAM_BOT_TOKEN is not set")
 	}
+
+	// Инициализация бота
+	bot, err := tgbotapi.NewBotAPI(botToken)
+	if err != nil {
+		log.Fatalf("Failed to create bot: %v", err)
+	}
+
+	log.Printf("Authorized on account %s", bot.Self.UserName)
 
 	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
