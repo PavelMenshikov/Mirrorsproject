@@ -54,11 +54,6 @@ func main() {
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
-	bot, err := tgbotapi.NewBotAPI(botToken)
-	if err != nil {
-		log.Panic(err)
-	}
-
 	bot.Debug = true // Включить режим отладки
 
 	// Настраиваем обновления от бота
