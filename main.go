@@ -39,6 +39,15 @@ func handleStart(userID int64) {
 }
 
 func main() {
+	go func() {
+		ticker := time.NewTicker(40 * time.Second) // Создаём тикер на 40 секунд
+		defer ticker.Stop()
+
+		for range ticker.C {
+			log.Println("Выполняется задача каждые 40 секунд")
+			// Вставьте сюда нужную задачу, например, отправку пинга
+		}
+	}()
 	go resetUniqueVisitors()
 	_ = godotenv.Load(".env")
 
