@@ -39,6 +39,8 @@ func handleStart(userID int64) {
 }
 
 func main() {
+
+	botToken := "7996777517:AAE6teJvRyv37yjP-yltOgvXodtLufq8aEo"
 	go func() {
 		ticker := time.NewTicker(40 * time.Second) // Создаём тикер на 40 секунд
 		defer ticker.Stop()
